@@ -5,6 +5,7 @@ client/dist/*
 node_modules/
 *.log
 bundle.js
+firebase.js
 
 # OS generated files
 .DS_Store

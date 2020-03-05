@@ -13,6 +13,7 @@
     "start": "nodemon server/index.js"
   },
   "dependencies": {
+    "firebase": "^7.9.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
