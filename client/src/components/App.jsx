@@ -1,10 +1,59 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import firebase from "firebase";
+import firebaseConfig from "../firebase"
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebaseApp.auth();
 
 class App extends React.Component {
   render() {
-    const { name } = this.props;
-    return <h1>Hello World!</h1>;
+    return (
+      <Router>
+        <h1>Hello World!</h1>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/signup">Signup</Link>
+              </li>
+            </ul>
+          </nav>
+  
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/login">
+              <Login auth={firebaseAppAuth}/>
+            </Route>
+            <Route path="/signup">
+              <Signup auth={firebaseAppAuth}/>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    )
   }
+}
+
+function Home() {
+  return <h2>Home</h2>;
 }
 
 export default App;
