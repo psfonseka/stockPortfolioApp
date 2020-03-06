@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
+import Portfolio from "../pages/Portfolio";
 import firebase from "firebase";
 import firebaseConfig from "../firebase"
 
@@ -30,6 +31,9 @@ class App extends React.Component {
               <li>
                 <Link to="/signup">Signup</Link>
               </li>
+              <li>
+                <Link to="/portfolio">Portfolio</Link>
+              </li>
             </ul>
           </nav>
   
@@ -41,6 +45,9 @@ class App extends React.Component {
             </Route>
             <Route path="/signup">
               <Signup auth={firebaseAppAuth}/>
+            </Route>
+            <Route path="/portfolio">
+              <Portfolio auth={firebaseAppAuth}/>
             </Route>
             <Route path="/">
               <Home />

@@ -23,14 +23,32 @@ class Signup extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+    event.preventDefault();
+    this.props.auth.createUserWithEmailAndPassword(this.state.emailEntry, this.state.passwordEntry)
+      .then(() => {
+        return this.props.auth.currentUser.getIdToken(true)
+      })
+      .then((token) => {
+        return axios.post('/signup', null, {headers: {'Authorization': token}})
+      })
+      .then((response) => {
+        //Axios does not allow redirects from the server, so we have to do it manually with react-router
+        this.props.history.push(response.data.redirect);
+      })
+      .catch(error => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(error);
+        alert(error.message);
+    });
   }
 
   render() {
     return (
       <div>
         <h2>Signup</h2>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>
             Name:
             <input
@@ -55,7 +73,7 @@ class Signup extends React.Component {
               onChange={this.handleChange} />
           </label>
           <br/>
-          <input type="submit" value="Submit" onSubmit={this.handleSubmit}/>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     )

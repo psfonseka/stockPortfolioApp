@@ -9,6 +9,9 @@ require("firebase/auth");
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// Import Authorization Middleware
+const Auth = require('./middleware/auth');
+
 // Initialize Express App
 const express = require('express')
 const path = require("path");
@@ -28,6 +31,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve React App
 app.use(express.static('./client/dist'))
+
+// app.get('/portfolio', (req, res) => {
+//   console.log(req.headers);
+//   res.send("confirm");
+// })
+
+app.post('/login', (req, res) => {
+  console.log(req.headers);
+  res.send({
+    redirect: '/portfolio'
+  });
+})
+
+app.post('/signup', (req, res) => {
+  console.log(req.headers);
+  res.send({
+    redirect: '/portfolio'
+  });
+})
+
+app.get('/portfolio', Auth.verifyAuthorization, (req, res) => {
+  res.send('hello');
+})
 
 app.get('/auth/signup', (req, res) => {
   firebase.auth().createUserWithEmailAndPassword("john@gmail.com", "doedoedoe")
@@ -58,6 +84,20 @@ app.get('/auth/signin', (req, res) => {
     res.send(error.message);
   });
 })
+
+app.get('/auth/token', (req, res) => {
+  if (firebase.auth().currentUser) {
+    firebase.auth().currentUser.getIdToken(true)
+    .then((idToken) => {
+      res.send(idToken);
+    }).catch((error) => {
+      res.send(error.message);
+    })
+  } else {
+    res.send("No current User");
+  }
+})
+
 
 /**
  * Fallback URL to enable client-side routing
