@@ -70,20 +70,20 @@ app.get('/auth/signup', (req, res) => {
   });
 })
 
-app.get('/auth/signin', (req, res) => {
-  firebase.auth().signInWithEmailAndPassword("john@gmail.com", "doedoedoe")
-    .then(user => {
-      console.log(user);
-      res.send(user);
-    })
-    .catch(error => {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(error);
-    res.send(error.message);
-  });
-})
+// app.get('/auth/signin', (req, res) => {
+//   firebase.auth().signInWithEmailAndPassword("john@gmail.com", "doedoedoe")
+//     .then(user => {
+//       console.log(user);
+//       res.send(user);
+//     })
+//     .catch(error => {
+//     // Handle Errors here.
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     console.log(error);
+//     res.send(error.message);
+//   });
+// })
 
 app.get('/auth/token', (req, res) => {
   if (firebase.auth().currentUser) {

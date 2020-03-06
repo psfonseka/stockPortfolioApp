@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <h1>Hello World!</h1>
+        <h1>Stock Portfolio App</h1>
         <div>
           <nav>
             <ul>

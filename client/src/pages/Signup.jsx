@@ -23,6 +23,14 @@ class Signup extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.props.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.props.history.push('/portfolio');
+      }
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     this.props.auth.createUserWithEmailAndPassword(this.state.emailEntry, this.state.passwordEntry)

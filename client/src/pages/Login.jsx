@@ -23,6 +23,14 @@ class Login extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.props.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.props.history.push('/portfolio');
+      }
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     this.props.auth.signInWithEmailAndPassword(this.state.emailEntry, this.state.passwordEntry)

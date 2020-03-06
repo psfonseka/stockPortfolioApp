@@ -8,15 +8,17 @@ class Portfolio extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.auth.currentUser) {
-      this.props.history.push('/login');
-    } else {
+    this.props.auth.onAuthStateChanged((user) => {
+      if (!user) {
+        this.props.history.push('/login');
+      } else {
       this.props.auth.currentUser.getIdToken(true)
-      .then((token) => {
-        console.log("portfolio", token);
-        console.log(this.props.auth.currentUser)
-      })
-    }
+        .then((token) => {
+          console.log("portfolio", token);
+          console.log(this.props.auth.currentUser)
+        })
+      }
+    })
   }
 
   render() {
