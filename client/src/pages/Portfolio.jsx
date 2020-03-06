@@ -7,8 +7,7 @@ class Portfolio extends React.Component {
     
   }
 
-  componentWillMount() {
-    console.log("happened");
+  componentDidMount() {
     if (!this.props.auth.currentUser) {
       this.props.history.push('/login');
     } else {

@@ -2,7 +2,6 @@ import React from "react";
 import {withRouter}  from "react-router-dom";
 
 const Signout = (props) => {
-  let that = this;
   props.auth.signOut()
     .then(function() {
       props.history.push("/login");
