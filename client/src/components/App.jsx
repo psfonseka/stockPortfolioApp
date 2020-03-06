@@ -3,11 +3,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Portfolio from "../pages/Portfolio";
+import Signout from "../pages/Signout";
 import firebase from "firebase";
 import firebaseConfig from "../firebase"
 
@@ -32,6 +33,9 @@ class App extends React.Component {
                 <Link to="/signup">Signup</Link>
               </li>
               <li>
+                <Link to="/signout">Signout</Link>
+              </li>
+              <li>
                 <Link to="/portfolio">Portfolio</Link>
               </li>
             </ul>
@@ -49,6 +53,9 @@ class App extends React.Component {
             <Route path="/portfolio">
               <Portfolio auth={firebaseAppAuth}/>
             </Route>
+            <Route path="/signout">
+              <Signout auth={firebaseAppAuth}/>
+            </Route>
             <Route path="/">
               <Home />
             </Route>
@@ -63,4 +70,13 @@ function Home() {
   return <h2>Home</h2>;
 }
 
+// const Signout = () => {
+//   firebaseAppAuth.signOut().then(function() {
+//     useHistory().push("/login");
+//   }).catch(function(error) {
+//     // An error happened.
+//     console.log(error);
+//   });
+//   return (<div/>)
+// }
 export default App;

@@ -16,11 +16,15 @@ module.exports.verifyAuthorization = (req, res, next) => {
       .then(() => {
         next()
       }).catch(() => {
-        res.redirect('/login');
+        res.send({
+          redirect: '/login'
+        });
         //res.status(403).send('Unauthorized')
       });
   } else {
-    res.redirect('/login');
+    res.send({
+      redirect: '/login'
+    });
     //res.status(403).send('Unauthorized')
   }
 };
