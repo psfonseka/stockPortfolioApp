@@ -13,7 +13,7 @@ module.exports.verifyAuthorization = (req, res, next) => {
   console.log("from verification:", req.headers);
   if (req.headers.authorization) {
     admin.auth().verifyIdToken(req.headers.authorization)
-      .then(() => {
+      .then((result) => {
         next()
       }).catch(() => {
         res.send({

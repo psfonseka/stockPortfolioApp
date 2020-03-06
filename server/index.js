@@ -51,7 +51,7 @@ app.post('/signup', (req, res) => {
   });
 })
 
-app.get('/portfolio', Auth.verifyAuthorization, (req, res) => {
+app.get('/api/portfolio', Auth.verifyAuthorization, (req, res) => {
   res.send('hello');
 })
 
