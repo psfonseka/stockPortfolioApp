@@ -9,6 +9,8 @@ router.post('/signup', Auth.createAuthorization, controller.signup);
 
 router.post('/login', controller.login);
 
+router.post('/portfolio', Auth.verifyAuthorization, controller.addStock);
+
 router.get('/portfolio', Auth.verifyAuthorization, controller.getPortfolio);
 
 router.get('/transactions', Auth.verifyAuthorization, controller.getTransactions);

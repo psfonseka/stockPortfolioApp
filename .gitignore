@@ -6,6 +6,7 @@ node_modules/
 *.log
 bundle.js
 serviceAccountKey.json
+IEXToken.json
 
 # OS generated files
 .DS_Store
