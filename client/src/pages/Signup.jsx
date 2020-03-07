@@ -39,7 +39,11 @@ class Signup extends React.Component {
         return this.props.auth.currentUser.getIdToken(true)
       })
       .then((token) => {
-        return axios.post('/api/signup', null, {headers: {'Authorization': token}})
+        const info = {
+          email: this.state.emailEntry,
+          full_name: this.state.nameEntry
+        }
+        return axios.post('/api/signup', info, {headers: {'Authorization': token}})
       })
       .then((response) => {
         //Axios does not allow redirects from the server, so we have to do it manually with react-router

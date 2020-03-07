@@ -5,7 +5,7 @@ const router = expressRouter();
 const Auth = require('./middleware/auth');
 
 //Connect controller methods to their corresponding routes
-router.post('/signup', controller.signup);
+router.post('/signup', Auth.createAuthorization, controller.signup);
 
 router.post('/login', controller.login);
 
