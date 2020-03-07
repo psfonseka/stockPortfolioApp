@@ -10,9 +10,7 @@ module.exports = {
     const token = req.headers.user_id;
     const email = req.body.email;
     const full_name = req.body.full_name;
-    console.log(token);
-    console.log(req.body);
-    db.any(`insert into users (email, full_name, user_id) values ('${email}', '${full_name}', '${token}')`)
+    db.any(`insert into users (email, full_name, user_id, balance) values ('${email}', '${full_name}', '${token}', 5000.00)`)
       .then((result) => {
         console.log(result);
         res.send({
