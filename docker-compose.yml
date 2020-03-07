@@ -1,0 +1,17 @@
+version: "3"
+services:
+  portfoliodb:
+    container_name: portfoliodb
+    build: ./db/
+    restart: always
+    environment:
+      POSTGRES_DB: portfolio
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRESQL_ROOT_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - my-db:/var/lib/postgresql/data
+volumes:
+  my-db:

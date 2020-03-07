@@ -14,6 +14,8 @@ module.exports.verifyAuthorization = (req, res, next) => {
   if (req.headers.authorization) {
     admin.auth().verifyIdToken(req.headers.authorization)
       .then((result) => {
+        console.log("verified:", result.user_id);
+        req.headers.user_id = result.user_id;
         next()
       }).catch(() => {
         res.send({

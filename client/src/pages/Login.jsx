@@ -38,7 +38,7 @@ class Login extends React.Component {
         return this.props.auth.currentUser.getIdToken(true)
       })
       .then((token) => {
-        return axios.post('/login', null, {headers: {'Authorization': token}})
+        return axios.post('/api/login', null, {headers: {'Authorization': token}})
       })
       .then((response) => {
         //Axios does not allow redirects from the server, so we have to do it manually with react-router
