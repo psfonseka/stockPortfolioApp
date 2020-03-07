@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-class Portfolio extends React.Component {
+class Transactions extends React.Component {
   constructor(props) {
     super(props);
     
@@ -14,7 +14,7 @@ class Portfolio extends React.Component {
       } else {
       this.props.auth.currentUser.getIdToken(true)
         .then((token) => {
-          console.log("portfolio", token);
+          console.log("transactions", token);
           console.log(this.props.auth.currentUser)
         })
       }
@@ -28,10 +28,10 @@ class Portfolio extends React.Component {
     //   })
     return(
       <h2>
-        Portfolio ($5000.00)
+        Transactions
       </h2>
     )
   }
 }
 
-export default withRouter(Portfolio);
+export default withRouter(Transactions);

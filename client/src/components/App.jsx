@@ -8,6 +8,7 @@ import {
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Portfolio from "../pages/Portfolio";
+import Transactions from "../pages/Transactions";
 import Signout from "../pages/Signout";
 import firebase from "firebase";
 import firebaseConfig from "../firebase"
@@ -38,6 +39,9 @@ class App extends React.Component {
               <li>
                 <Link to="/portfolio">Portfolio</Link>
               </li>
+              <li>
+                <Link to="/transactions">Transactions</Link>
+              </li>
             </ul>
           </nav>
   
@@ -55,6 +59,9 @@ class App extends React.Component {
             </Route>
             <Route path="/signout">
               <Signout auth={firebaseAppAuth}/>
+            </Route>
+            <Route path="/transactions">
+              <Transactions auth={firebaseAppAuth}/>
             </Route>
             <Route path="/">
               <Home />

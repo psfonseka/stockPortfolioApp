@@ -1,6 +1,6 @@
 # Stock Portfolio App
 
-Spotify Challenge
+An application that simulates a stock portfolio with user authentication.
 
 ## Building and running on localhost
 
