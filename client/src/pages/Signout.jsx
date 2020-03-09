@@ -1,10 +1,11 @@
 import React from "react";
 import {withRouter}  from "react-router-dom";
 
-const Signout = (props) => {
+const SignOut = (props) => {
   props.auth.signOut()
     .then(function() {
       props.history.push("/login");
+      props.signOut();
     })
     .catch(function(error) {
       console.log(error);
@@ -12,4 +13,4 @@ const Signout = (props) => {
   return (<div/>)
 }
 
-export default withRouter(Signout);
+export default withRouter(SignOut);

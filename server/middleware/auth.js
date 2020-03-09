@@ -16,7 +16,7 @@ module.exports.verifyAuthorization = (req, res, next) => {
   if (req.headers.authorization) {
     admin.auth().verifyIdToken(req.headers.authorization)
       .then((result) => {
-        // Get the proper id of the user 
+        // Get the proper id of the user for later queries
         return db.any(`SELECT id FROM users where token = '${result.user_id}'`); 
       })
       .then((id) => {

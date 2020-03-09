@@ -9,7 +9,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Portfolio from "../pages/Portfolio";
 import Transactions from "../pages/Transactions";
-import Signout from "../pages/Signout";
+import SignOut from "../pages/SignOut";
 import firebase from "firebase";
 import firebaseConfig from "../firebase"
 
@@ -17,6 +17,32 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false
+    };
+
+    this.signOut = this.signOut.bind(this);
+  }
+
+  componentDidMount() {
+    // Determine possible routes based on whether there is a user logged in
+    firebaseAppAuth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          loggedIn: true
+        });
+      }
+    })
+  }
+
+  signOut() {
+    this.setState({
+      loggedIn: false
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -24,24 +50,29 @@ class App extends React.Component {
         <div>
           <nav>
             <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-              <li>
-                <Link to="/signout">Signout</Link>
-              </li>
-              <li>
-                <Link to="/portfolio">Portfolio</Link>
-              </li>
-              <li>
-                <Link to="/transactions">Transactions</Link>
-              </li>
+              {this.state.loggedIn && (
+                <div>
+                  <li>
+                    <Link to="/signout">SignOut</Link>
+                  </li>
+                  <li>
+                    <Link to="/portfolio">Portfolio</Link>
+                  </li>
+                  <li>
+                    <Link to="/transactions">Transactions</Link>
+                  </li>
+                </div>
+              )}
+              {!this.state.loggedIn && (
+                <div>
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/signup">Signup</Link>
+                  </li>
+                </div>
+              )}
             </ul>
           </nav>
   
@@ -58,7 +89,7 @@ class App extends React.Component {
               <Portfolio auth={firebaseAppAuth}/>
             </Route>
             <Route path="/signout">
-              <Signout auth={firebaseAppAuth}/>
+              <SignOut auth={firebaseAppAuth} signOut={this.signOut}/>
             </Route>
             <Route path="/transactions">
               <Transactions auth={firebaseAppAuth}/>
@@ -77,13 +108,4 @@ function Home() {
   return <h2>Home</h2>;
 }
 
-// const Signout = () => {
-//   firebaseAppAuth.signOut().then(function() {
-//     useHistory().push("/login");
-//   }).catch(function(error) {
-//     // An error happened.
-//     console.log(error);
-//   });
-//   return (<div/>)
-// }
 export default App;

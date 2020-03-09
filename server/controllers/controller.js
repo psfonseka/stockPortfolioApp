@@ -1,9 +1,9 @@
 const db = require("../db/connection");
-const iexToken = require("../env/IEXToken.json").API_Token;
+const iexTokens = require("../env/IEXToken.json");
 const axios = require("axios");
-//Mode can be sandbox or cloud mode - using sandbox to avoid key limit usage
+//Mode can be sandbox(testing unlimited) or cloud mode(production limited)
 const mode = "sandbox";
-console.log(iexToken);
+const apiToken = (mode === "sandbox") ? iexTokens.API_Test : iexTokens.API_Token;
 db.any("SELECT * FROM users")
   .then((result) => {
     console.log(result);
@@ -36,7 +36,7 @@ module.exports = {
   },
 
   addStock: (req, res) => {
-    axios.get(`https://${mode}.iexapis.com/stable/stock/${req.body.tracker}/quote?token=Tpk_04eb566627814878b05e8989c247f362`)
+    axios.get(`https://${mode}.iexapis.com/stable/stock/${req.body.tracker}/quote?token=${apiToken}`)
       .then((result) => {
         console.log(result.data);
         res.send(result.data);
