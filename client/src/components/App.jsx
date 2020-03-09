@@ -46,36 +46,35 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <h1>Stock Portfolio App</h1>
         <div>
           <nav>
-            <ul>
+            <ul className="links">
               {this.state.loggedIn && (
                 <div>
-                  <li>
+                  <li className="link">
                     <Link to="/signout">SignOut</Link>
-                  </li>
-                  <li>
+                  </li> 
+                  <li className="link">
                     <Link to="/portfolio">Portfolio</Link>
-                  </li>
-                  <li>
+                  </li> 
+                  <li className="link">
                     <Link to="/transactions">Transactions</Link>
                   </li>
                 </div>
               )}
               {!this.state.loggedIn && (
                 <div>
-                  <li>
+                  <li className="link">
                     <Link to="/login">Login</Link>
-                  </li>
-                  <li>
+                  </li> 
+                  <li className="link">
                     <Link to="/signup">Signup</Link>
                   </li>
                 </div>
               )}
             </ul>
           </nav>
-  
+          <h1>Stock Portfolio App</h1>
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>

@@ -1,7 +1,5 @@
 .cache/
 coverage/
-client/dist/*
-!client/dist/index.html
 node_modules/
 *.log
 bundle.js
