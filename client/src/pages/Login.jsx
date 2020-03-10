@@ -55,11 +55,13 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="box">
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
-            E-mail:
+            <div>
+              E-mail:
+            </div>
             <input
               name="emailEntry"
               value={this.state.emailEntry}
@@ -67,14 +69,16 @@ class Login extends React.Component {
           </label>
           <br/>
           <label>
-            Password:
+            <div>
+              Password:
+            </div>
             <input
               name="passwordEntry"
               value={this.state.passwordEntry}
               onChange={this.handleChange} />
           </label>
           <br/>
-          <input type="submit" value="Submit"/>
+          <input className="button" type="submit" value="Submit"/>
         </form>
       </div>
     )

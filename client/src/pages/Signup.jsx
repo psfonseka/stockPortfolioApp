@@ -60,11 +60,13 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="box">
         <h2>Signup</h2>
         <form onSubmit={this.handleSubmit}>
           <label>
-            Name:
+            <div>
+              Name:
+            </div>
             <input
               name="nameEntry"
               value={this.state.nameEntry}
@@ -72,7 +74,9 @@ class Signup extends React.Component {
           </label>
           <br/>
           <label>
-            E-mail:
+            <div>
+              E-mail:
+            </div>
             <input
               name="emailEntry"
               value={this.state.emailEntry}
@@ -80,14 +84,16 @@ class Signup extends React.Component {
           </label>
           <br/>
           <label>
-            Password:
+            <div>
+              Password:
+            </div>
             <input
               name="passwordEntry"
               value={this.state.passwordEntry}
               onChange={this.handleChange} />
           </label>
           <br/>
-          <input type="submit" value="Submit" />
+          <input className="button" type="submit" value="Submit" />
         </form>
       </div>
     )

@@ -43,6 +43,8 @@ class Portfolio extends React.Component {
     console.log(this.state.quantityEntry);
     if (isNaN(this.state.quantityEntry)) {
       alert("Quantity must be a number!");
+    } else if (!Number.isInteger(Number(this.state.quantityEntry))) {
+      alert("Quantity must be a positive integer!");
     }
     this.props.auth.currentUser.getIdToken(true)
       .then((token) => {
@@ -73,25 +75,28 @@ class Portfolio extends React.Component {
     return(
       <div>
         <h2>Portfolio ($5000.00)</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Tracker:
-            <input
-              name="trackerEntry"
-              value={this.state.trackerEntry}
-              onChange={this.handleChange} />
-          </label>
-          <br/>
-          <label>
-            Quantity:
-            <input
-              name="quantityEntry"
-              value={this.state.quantityEntry}
-              onChange={this.handleChange} />
-          </label>
-          <br/>
-          <input type="submit" value="Buy"/>
-        </form>
+        <div className="box">
+          <h2>Cash - $5000.00</h2>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Tracker:
+              <input
+                name="trackerEntry"
+                value={this.state.trackerEntry}
+                onChange={this.handleChange} />
+            </label>
+            <br/>
+            <label>
+              Quantity:
+              <input
+                name="quantityEntry"
+                value={this.state.quantityEntry}
+                onChange={this.handleChange} />
+            </label>
+            <br/>
+            <input className="button" type="submit" value="Buy"/>
+          </form>
+        </div>
       </div>
     )
   }
