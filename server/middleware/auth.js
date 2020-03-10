@@ -20,7 +20,7 @@ module.exports.verifyAuthorization = (req, res, next) => {
         return db.any(`SELECT id FROM users where token = '${result.user_id}'`); 
       })
       .then((id) => {
-        req.headers.user_id = id;
+        req.headers.user_id = id[0].id;
         next();
       })
       .catch((error) => {

@@ -7,7 +7,8 @@ class Portfolio extends React.Component {
     super(props);
     this.state = {
       trackerEntry: "",
-      quantityEntry: ""
+      quantityEntry: "",
+      balance: ""
     }
     
     this.handleChange = this.handleChange.bind(this);
@@ -63,8 +64,10 @@ class Portfolio extends React.Component {
       .then((token) => {
         return axios.get('/api/portfolio', {headers: {'Authorization': token}})
       })
-      .then((data) => {
-        console.log(data);
+      .then((portfolio) => {
+        this.setState({
+          balance: portfolio.data.balance
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -74,9 +77,9 @@ class Portfolio extends React.Component {
   render() {
     return(
       <div>
-        <h2>Portfolio ($5000.00)</h2>
+        <h2>Portfolio (${this.state.balance})</h2>
         <div className="box">
-          <h2>Cash - $5000.00</h2>
+          <h2>Cash - ${this.state.balance}</h2>
           <form onSubmit={this.handleSubmit}>
             <label>
               Tracker:

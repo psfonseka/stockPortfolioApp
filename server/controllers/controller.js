@@ -32,7 +32,19 @@ module.exports = {
   },
 
   getPortfolio: (req, res) => {
-    res.send('hello - portfolio');
+    console.log(req.headers);
+    const user_id = req.headers.user_id;
+    console.log(user_id);
+    let info = {};
+    db.any(`select balance from users where id = ${user_id}`)
+      .then((result) => {
+        info.balance = result[0].balance;
+        res.send(info);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send(error);
+      })
   },
 
   addStock: (req, res) => {
