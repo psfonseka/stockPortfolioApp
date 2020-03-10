@@ -6,6 +6,7 @@ class Portfolio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       trackerEntry: "",
       quantityEntry: "",
       balance: ""
@@ -66,6 +67,7 @@ class Portfolio extends React.Component {
       })
       .then((portfolio) => {
         this.setState({
+          loading: false,
           balance: portfolio.data.balance
         });
       })
@@ -77,29 +79,36 @@ class Portfolio extends React.Component {
   render() {
     return(
       <div>
-        <h2>Portfolio (${this.state.balance})</h2>
-        <div className="box">
-          <h2>Cash - ${this.state.balance}</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Tracker:
-              <input
-                name="trackerEntry"
-                value={this.state.trackerEntry}
-                onChange={this.handleChange} />
-            </label>
-            <br/>
-            <label>
-              Quantity:
-              <input
-                name="quantityEntry"
-                value={this.state.quantityEntry}
-                onChange={this.handleChange} />
-            </label>
-            <br/>
-            <input className="button" type="submit" value="Buy"/>
-          </form>
-        </div>
+        {this.state.loading && (
+          <h2>Portfolio (Loading...)</h2>
+        )}
+        {!this.state.loading && (
+          <div>
+            <h2>Portfolio (${this.state.balance})</h2>
+            <div className="box">
+              <h2>Cash - ${this.state.balance}</h2>
+              <form onSubmit={this.handleSubmit}>
+                <label>
+                  Tracker:
+                  <input
+                    name="trackerEntry"
+                    value={this.state.trackerEntry}
+                    onChange={this.handleChange} />
+                </label>
+                <br/>
+                <label>
+                  Quantity:
+                  <input
+                    name="quantityEntry"
+                    value={this.state.quantityEntry}
+                    onChange={this.handleChange} />
+                </label>
+                <br/>
+                <input className="button" type="submit" value="Buy"/>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     )
   }
