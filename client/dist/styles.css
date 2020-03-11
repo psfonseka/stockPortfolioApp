@@ -71,11 +71,26 @@ form {
 
 .stockContainer {
   margin: auto;
-  width: 30%;
+  width: 40%;
 }
 
-.stock {
+.stockRed {
   border-bottom: 2px solid grey;
   background-clip: padding-box;
   padding: 15px;
+  color: red;
+}
+
+.stockGrey {
+  border-bottom: 2px solid grey;
+  background-clip: padding-box;
+  padding: 15px;
+  color: grey;
+}
+
+.stockGreen {
+  border-bottom: 2px solid grey;
+  background-clip: padding-box;
+  padding: 15px;
+  color: green;
 }

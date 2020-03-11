@@ -2,7 +2,7 @@ const db = require("../db/connection");
 const iexTokens = require("../env/IEXToken.json");
 const axios = require("axios");
 //Mode can be sandbox(testing unlimited) or cloud mode(production limited)
-const mode = "sandbox";
+const mode = "cloud";
 const apiToken = (mode === "sandbox") ? iexTokens.API_Test : iexTokens.API_Token;
 
 module.exports = {

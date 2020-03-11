@@ -81,12 +81,22 @@ class Portfolio extends React.Component {
           trackerEntry: "",
           quantityEntry: "",
           portfolioValue: portfolio.data.portfolioValue.toFixed(2),
-          stocks: portfolio.data.stocks
+          stocks: this.colorStocks(portfolio.data.stocks)
         });
       })
       .catch((err) => {
         console.log(err);
       }) 
+  }
+
+  colorStocks(stocks) {
+    for (let i = 0; i < stocks.length; i++) {
+      let stock = stocks[i];
+      if (stock.currentPrice === stock.openPrice) stock.color = "Grey";
+      else if (stock.currentPrice > stock.openPrice) stock.color = "Green";
+      else stock.color = "Red";
+    }
+    return stocks;
   }
 
   render() {
@@ -123,8 +133,8 @@ class Portfolio extends React.Component {
             <div className="stockContainer">
               {this.state.stocks.map((stock) => {
                 return (
-                <div className="stock" key={stock.id}>
-                  {`${stock.tracker} - ${stock.quantity} Shares $${stock.totalValue}`}
+                <div className={`stock${stock.color}`} key={stock.id}>
+                  {`${stock.tracker} - ${stock.quantity} Shares Open: $${stock.openPrice.toFixed(2)} Now: $${stock.currentPrice.toFixed(2)} Total: $${stock.totalValue}`}
                 </div>)
               })}
             </div>
