@@ -61,6 +61,7 @@ form {
 .transactionContainer {
   margin: auto;
   width: 30%;
+  text-align: center;
 }
 
 .transaction {
@@ -72,6 +73,7 @@ form {
 .stockContainer {
   margin: auto;
   width: 40%;
+  text-align: center;
 }
 
 .stockRed {
