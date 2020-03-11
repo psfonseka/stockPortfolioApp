@@ -52,8 +52,12 @@ class Portfolio extends React.Component {
       .then((token) => {
         return axios.post('/api/portfolio', buy, {headers: {'Authorization': token}})
       })
-      .then((data) => {
+      .then((result) => {
+        let data = result.data;
         console.log(data);
+        if (data.alert) {
+          alert(data.alert);
+        }
       })
       .catch((err) => {
         console.log(err);

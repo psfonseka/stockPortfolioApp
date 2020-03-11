@@ -48,10 +48,30 @@ module.exports = {
   },
 
   addStock: (req, res) => {
-    axios.get(`https://${mode}.iexapis.com/stable/stock/${req.body.tracker}/quote?token=${apiToken}`)
+    const user_id = req.headers.user_id;
+    let info = {};
+    db.any(`select balance from users where id = ${user_id}`)
       .then((result) => {
-        console.log(result.data);
-        res.send(result.data);
+        info.balance = result[0].balance;
+        axios.get(`https://${mode}.iexapis.com/stable/stock/${req.body.tracker}/quote?token=${apiToken}`)
+          .then((result) => {
+            let data = result.data;
+            let quantity = req.body.quantity;
+            let price = data.iexRealtimePrice;
+            console.log(data);
+            let cost = Number((price*parseInt(quantity)).toFixed(2));
+            console.log(cost);
+            if (cost > info.balance) {
+              res.send({alert: `Not enough cash for purchase: $${cost.toFixed(2)}`});
+            } else {
+              res.send(data);
+            }   
+          })
+          .catch((error) => {
+            console.log(error);
+            res.send(error);
+          })
+        //res.send(info);
       })
       .catch((error) => {
         console.log(error);
