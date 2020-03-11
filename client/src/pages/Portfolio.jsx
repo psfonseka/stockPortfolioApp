@@ -132,10 +132,12 @@ class Portfolio extends React.Component {
             <h2>Portfolio (${this.state.portfolioValue})</h2>
             <div className="stockContainer">
               {this.state.stocks.map((stock) => {
-                return (
-                <div className={`stock${stock.color}`} key={stock.id}>
-                  {`${stock.tracker} - ${stock.quantity} Shares Open: $${stock.openPrice.toFixed(2)} Now: $${stock.currentPrice.toFixed(2)} Total: $${stock.totalValue}`}
-                </div>)
+                if (stock.quantity > 0) {
+                  return (
+                    <div className={`stock${stock.color}`} key={stock.id}>
+                      {`${stock.tracker} - ${stock.quantity} Shares Open: $${stock.openPrice.toFixed(2)} Now: $${stock.currentPrice.toFixed(2)} Total: $${stock.totalValue}`}
+                    </div>)
+                }
               })}
             </div>
           </div>
