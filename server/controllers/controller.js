@@ -154,7 +154,7 @@ module.exports = {
           })
           .catch((error) => {
             console.log(error);
-            res.send({alert: `${error}`});
+            res.send({alert: `${error}, likely incorrect ticker`});
           })
       })
       .catch((error) => {
