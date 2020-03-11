@@ -10,6 +10,7 @@ class Portfolio extends React.Component {
       trackerEntry: "",
       quantityEntry: "",
       balance: "",
+      portfolioValue: "",
       stocks: []
     }
     
@@ -79,6 +80,8 @@ class Portfolio extends React.Component {
           balance: portfolio.data.balance,
           trackerEntry: "",
           quantityEntry: "",
+          portfolioValue: portfolio.data.portfolioValue.toFixed(2),
+          stocks: portfolio.data.stocks
         });
       })
       .catch((err) => {
@@ -94,7 +97,6 @@ class Portfolio extends React.Component {
         )}
         {!this.state.loading && (
           <div>
-            <h2>Portfolio (${this.state.balance})</h2>
             <div className="box">
               <h2>Cash - ${this.state.balance}</h2>
               <form onSubmit={this.handleSubmit}>
@@ -116,6 +118,15 @@ class Portfolio extends React.Component {
                 <br/>
                 <input className="button" type="submit" value="Buy"/>
               </form>
+            </div>
+            <h2>Portfolio (${this.state.portfolioValue})</h2>
+            <div className="stockContainer">
+              {this.state.stocks.map((stock) => {
+                return (
+                <div className="stock" key={stock.id}>
+                  {`${stock.tracker} - ${stock.quantity} Shares $${stock.totalValue}`}
+                </div>)
+              })}
             </div>
           </div>
         )}

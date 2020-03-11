@@ -45,9 +45,12 @@ module.exports = {
         return Promise.all(stocks);
       })
       .then((stockInfo) => {
+        info.portfolioValue = 0;
         for (let i = 0; i < stockInfo.length; i++) {
           info.stocks[i].currentPrice = stockInfo[i].data.iexRealtimePrice || stockInfo[i].data.latestPrice;
           info.stocks[i].openPrice = stockInfo[i].data.previousClose; // Using previous close because open prices are broken on the IEX API
+          info.stocks[i].totalValue = (info.stocks[i].currentPrice*info.stocks[i].quantity).toFixed(2);
+          info.portfolioValue += Number(info.stocks[i].totalValue);
         }
         res.send(info);
       })

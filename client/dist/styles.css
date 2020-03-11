@@ -68,3 +68,14 @@ form {
   background-clip: padding-box;
   padding: 15px;
 }
+
+.stockContainer {
+  margin: auto;
+  width: 30%;
+}
+
+.stock {
+  border-bottom: 2px solid grey;
+  background-clip: padding-box;
+  padding: 15px;
+}
