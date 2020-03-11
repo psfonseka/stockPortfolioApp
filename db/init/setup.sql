@@ -15,10 +15,11 @@ CREATE TABLE stocks (
   tracker VARCHAR(40) NOT NULL
 );
 
-CREATE TABLE transcations (
+CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
   stock_id INTEGER REFERENCES stocks(id),
   trade VARCHAR(40) NOT NULL,
+  quantity INTEGER NOT NULL,
   price DECIMAL(12,2) NOT NULL
 );
 --insert into users (email, full_name, user_id, balance) values ('john@gmail.com', 'John Joe', 'sekfsefklsfjl', 5000.00);

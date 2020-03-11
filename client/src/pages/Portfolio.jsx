@@ -57,6 +57,8 @@ class Portfolio extends React.Component {
         console.log(data);
         if (data.alert) {
           alert(data.alert);
+        } else {
+          this.getPortfolio();
         }
       })
       .catch((err) => {
@@ -72,7 +74,9 @@ class Portfolio extends React.Component {
       .then((portfolio) => {
         this.setState({
           loading: false,
-          balance: portfolio.data.balance
+          balance: portfolio.data.balance,
+          trackerEntry: "",
+          quantityEntry: "",
         });
       })
       .catch((err) => {
