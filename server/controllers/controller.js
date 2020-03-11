@@ -57,7 +57,7 @@ module.exports = {
         axios.get(`https://${mode}.iexapis.com/stable/stock/${tracker}/quote?token=${apiToken}`)
           .then((result) => {
             let data = result.data;
-            let price = data.iexRealtimePrice;
+            let price = data.iexRealtimePrice || data.latestPrice;
             let cost = Number((price*quantity).toFixed(2));
             console.log(cost);
             // Check to see if the user can actually make the purchase depending on whether their balance is greater than the total cost
@@ -72,11 +72,7 @@ module.exports = {
                     console.log(query);
                     // If the user does not own the stock, add the stock to the database, then find the stockID and add to transactions
                     if (query.length === 0) {
-                      db.any(`insert into stocks (user_id, quantity, tracker) values (${user_id}, ${quantity},'${tracker}')`)
-                        .then((insertion) => {
-                          // Doing this because insertion did not have anything
-                          return db.any(`select id from stocks where user_id = ${user_id} and tracker = '${tracker}'`)
-                        })
+                      db.any(`insert into stocks (user_id, quantity, tracker) values (${user_id}, ${quantity},'${tracker}') returning id`)
                         .then((idobj) => {
                           let stockID = idobj[0].id;
                           return db.any(`insert into transactions (stock_id, trade, quantity, price) values (${stockID}, 'buy', ${quantity}, ${price})`)
