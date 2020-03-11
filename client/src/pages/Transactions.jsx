@@ -5,7 +5,9 @@ const axios = require("axios");
 class Transactions extends React.Component {
   constructor(props) {
     super(props);
-    
+    this.state = {
+      transactions: []
+    };
   }
 
   componentDidMount() {

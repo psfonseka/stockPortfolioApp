@@ -113,16 +113,24 @@ module.exports = {
           })
           .catch((error) => {
             console.log(error);
-            res.send(error);
+            res.send({alert: `${error}, likely non-existent tracker`});
           })
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send({alert: `${error}, likely non-existent tracker`});
+      })
+  },
+
+  getTransactions: (req, res) => {
+    const user_id = req.headers.user_id;
+    db.any(`select transactions.id, transactions.quantity, price, trade, tracker from transactions left outer join stocks on transactions.stock_id = stocks.id where stocks.user_id = ${user_id}`)
+      .then((result) => {
+        res.send(result);
       })
       .catch((error) => {
         console.log(error);
         res.send(error);
       })
-  },
-
-  getTransactions: (req, res) => {
-    res.send('hello - transactions');
   }
 };
