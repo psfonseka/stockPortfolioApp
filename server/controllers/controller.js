@@ -4,10 +4,6 @@ const axios = require("axios");
 //Mode can be sandbox(testing unlimited) or cloud mode(production limited)
 const mode = "sandbox";
 const apiToken = (mode === "sandbox") ? iexTokens.API_Test : iexTokens.API_Token;
-// db.any("SELECT * FROM users")
-//   .then((result) => {
-//     console.log(result);
-//   })
 
 module.exports = {
   signup: (req, res) => {
@@ -39,6 +35,20 @@ module.exports = {
     db.any(`select balance from users where id = ${user_id}`)
       .then((result) => {
         info.balance = result[0].balance;
+        return db.any(`select id, quantity, tracker from stocks where stocks.user_id = ${user_id}`)
+      })
+      .then((result) => {
+        info.stocks = result;
+        let stocks = result.map((stock) => {
+          return axios.get(`https://${mode}.iexapis.com/stable/stock/${stock.tracker}/quote?token=${apiToken}`)
+        })
+        return Promise.all(stocks);
+      })
+      .then((stockInfo) => {
+        for (let i = 0; i < stockInfo.length; i++) {
+          info.stocks[i].currentPrice = stockInfo[i].data.iexRealtimePrice || stockInfo[i].data.latestPrice;
+          info.stocks[i].openPrice = stockInfo[i].data.previousClose; // Using previous close because open prices are broken on the IEX API
+        }
         res.send(info);
       })
       .catch((error) => {
