@@ -57,3 +57,14 @@ form {
   padding: 2px;
   display: inline;
 }
+
+.transactionContainer {
+  margin: auto;
+  width: 30%;
+}
+
+.transaction {
+  border-bottom: 2px solid grey;
+  background-clip: padding-box;
+  padding: 15px;
+}

@@ -9,7 +9,8 @@ class Portfolio extends React.Component {
       loading: true,
       trackerEntry: "",
       quantityEntry: "",
-      balance: ""
+      balance: "",
+      stocks: []
     }
     
     this.handleChange = this.handleChange.bind(this);

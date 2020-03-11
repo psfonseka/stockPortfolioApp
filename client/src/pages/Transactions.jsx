@@ -27,6 +27,9 @@ class Transactions extends React.Component {
       })
       .then((data) => {
         console.log(data);
+        this.setState({
+          transactions: data.data
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -35,9 +38,19 @@ class Transactions extends React.Component {
 
   render() {
     return(
-      <h2>
-        Transactions
-      </h2>
+      <div>
+        <h2>
+          Transactions
+        </h2>
+        <div className="transactionContainer">
+          {this.state.transactions.map((transaction) => {
+            return (
+            <div className="transaction" key={transaction.id}>
+              {`${transaction.trade.toUpperCase()} (${transaction.tracker}) - ${transaction.quantity} Shares @ ${transaction.price}`}
+            </div>)
+          })}
+        </div>
+      </div>
     )
   }
 }
