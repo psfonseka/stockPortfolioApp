@@ -61,7 +61,7 @@ module.exports = {
       })
   },
 
-  addStock: (req, res) => {
+  tradeStock: (req, res) => {
     const user_id = req.headers.user_id;
     let quantity = parseInt(req.body.quantity);
     let tracker = req.body.tracker.toUpperCase();
@@ -127,8 +127,29 @@ module.exports = {
               } 
             }
             else if (decision === "sell") {
-              console.log("sell");
-              res.send("");
+              let stockID = -1;
+              db.any(`select id, quantity from stocks where user_id = ${user_id} and tracker = '${tracker}'`)
+                .then((query) => {
+                  if (query[0].quantity < quantity) throw "The selling quantity is less than owned quantity"
+                  else {
+                    stockID = query[0].id;
+                    let newQuantity = query[0].quantity - quantity;
+                    return db.any(`update stocks set quantity = ${newQuantity} where id = ${stockID}`)
+                  }
+                })
+                .then(() => {
+                  return db.any(`update users set balance = balance + ${cost} where id = ${user_id}`)
+                })
+                .then(() => {
+                  return db.any(`insert into transactions (stock_id, trade, quantity, price) values (${stockID}, 'sell', ${quantity}, ${price})`)
+                })
+                .then(() => {
+                  res.send(data);
+                })
+                .catch((error) => {
+                  console.log(error);
+                  res.send({alert: `${error}`});
+                })
             } else throw "Something went wrong! Not Buy or Sell";
           })
           .catch((error) => {
