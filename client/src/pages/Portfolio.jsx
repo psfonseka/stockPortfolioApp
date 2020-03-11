@@ -37,14 +37,13 @@ class Portfolio extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  handleSubmit(event, decision) {
     event.preventDefault();
-    const buy = {
+    const info = {
       tracker: this.state.trackerEntry,
-      quantity: this.state.quantityEntry
+      quantity: this.state.quantityEntry,
+      decision: decision
     };
-    console.log(this.state.trackerEntry);
-    console.log(this.state.quantityEntry);
     if (isNaN(this.state.quantityEntry)) {
       alert("Quantity must be a number!");
     } else if (!Number.isInteger(Number(this.state.quantityEntry))) {
@@ -52,7 +51,7 @@ class Portfolio extends React.Component {
     }
     this.props.auth.currentUser.getIdToken(true)
       .then((token) => {
-        return axios.post('/api/portfolio', buy, {headers: {'Authorization': token}})
+        return axios.post('/api/portfolio', info, {headers: {'Authorization': token}})
       })
       .then((result) => {
         let data = result.data;
@@ -114,7 +113,7 @@ class Portfolio extends React.Component {
           <div>
             <div className="box">
               <h2>Cash - ${this.state.balance}</h2>
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={(event) => this.handleSubmit(event, "buy")}>
                 <label>
                   Tracker:
                   <input
@@ -132,6 +131,7 @@ class Portfolio extends React.Component {
                 </label>
                 <br/>
                 <input className="button" type="submit" value="Buy"/>
+                <button className="button" onClick={(event) => this.handleSubmit(event, "sell")}>Sell</button>
               </form>
             </div>
             <h2>Portfolio (${this.state.portfolioValue})</h2>
