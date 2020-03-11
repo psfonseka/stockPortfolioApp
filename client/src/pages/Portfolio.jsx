@@ -68,7 +68,7 @@ class Portfolio extends React.Component {
       }) 
   }
 
-  getPortfolio() {
+  getPortfolio(attempted) {
     this.props.auth.currentUser.getIdToken(true)
       .then((token) => {
         return axios.get('/api/portfolio', {headers: {'Authorization': token}})
@@ -86,6 +86,11 @@ class Portfolio extends React.Component {
       })
       .catch((err) => {
         console.log(err);
+        if (!attempted) {
+          setTimeout(() => {
+            this.getPortfolio(true)
+          }, 500);
+        }
       }) 
   }
 

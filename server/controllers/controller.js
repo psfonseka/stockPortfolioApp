@@ -63,7 +63,7 @@ module.exports = {
   addStock: (req, res) => {
     const user_id = req.headers.user_id;
     let quantity = parseInt(req.body.quantity);
-    let tracker = req.body.tracker;
+    let tracker = req.body.tracker.toUpperCase();
     db.any(`select balance from users where id = ${user_id}`)
       .then((result) => {
         let balance = result[0].balance;
@@ -126,12 +126,12 @@ module.exports = {
           })
           .catch((error) => {
             console.log(error);
-            res.send({alert: `${error}, likely non-existent tracker`});
+            res.send({alert: `${error}`});
           })
       })
       .catch((error) => {
         console.log(error);
-        res.send({alert: `${error}, likely non-existent tracker`});
+        res.send({alert: `${error}`});
       })
   },
 
