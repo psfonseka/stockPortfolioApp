@@ -22,4 +22,3 @@ CREATE TABLE transactions (
   quantity INTEGER NOT NULL,
   price DECIMAL(12,2) NOT NULL
 );
---insert into users (email, full_name, user_id, balance) values ('john@gmail.com', 'John Joe', 'sekfsefklsfjl', 5000.00);
