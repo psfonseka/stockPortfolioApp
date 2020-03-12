@@ -8,10 +8,11 @@
   "license": "ISC",
   "scripts": {
     "clean": "rm dist/bundle.js",
-    "build-dev": "webpack -d --mode development --watch",
-    "build-prod": "webpack -p --mode production",
+    "build-client:dev": "webpack -d --mode development --watch",
+    "build-client:prod": "webpack -p --mode production",
+    "db-start:dev": "docker-compose up --build -d",
     "start": "nodemon server/index.js",
-    "start-prod": "pm2 start server/index.js"
+    "start:prod": "pm2 start server/index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
