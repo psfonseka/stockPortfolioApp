@@ -26,7 +26,6 @@ class Transactions extends React.Component {
         return axios.get('/api/transactions', {headers: {'Authorization': token}})
       })
       .then((data) => {
-        console.log(data);
         this.setState({
           transactions: data.data
         });

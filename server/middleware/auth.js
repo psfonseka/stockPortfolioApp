@@ -47,12 +47,10 @@ module.exports.createAuthorization = (req, res, next) => {
         res.send({
           redirect: '/login'
         });
-        //res.status(403).send('Unauthorized')
       });
   } else {
     res.send({
       redirect: '/login'
     });
-    //res.status(403).send('Unauthorized')
   }
 };

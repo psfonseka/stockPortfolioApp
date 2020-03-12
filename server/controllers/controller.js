@@ -1,7 +1,6 @@
 const db = require("../db/connection");
 const iexTokens = require("../env/IEXToken.json");
 const axios = require("axios");
-//Mode can be sandbox(testing unlimited) or cloud mode(production limited)
 const mode = "cloud";
 const apiToken = (mode === "sandbox") ? iexTokens.API_Test : iexTokens.API_Token;
 
@@ -130,7 +129,8 @@ module.exports = {
               let stockID = -1;
               db.any(`select id, quantity from stocks where user_id = ${user_id} and tracker = '${tracker}'`)
                 .then((query) => {
-                  if (query[0].quantity < quantity) throw "The selling quantity is less than owned quantity"
+                  if (!query[0].quantity) throw "Stock isn't owned";
+                  if (query[0].quantity < quantity) throw "The selling quantity is less than owned quantity";
                   else {
                     stockID = query[0].id;
                     let newQuantity = query[0].quantity - quantity;

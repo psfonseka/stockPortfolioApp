@@ -49,6 +49,8 @@ Make new API requests for each stock to get the latest price. Quantity and stock
 Just implemented by changing className (which changes the CSS) depending on the conditional statements.
 
 ### Other things I would like to have implemented if given more time:
+
+- [ ] General code cleanup
 - [ ] Unit testing with mocha+chai
 - [ ] E2E testing with puppeteer+jest
 - [ ] Better code modularity for controllers and frontend pages

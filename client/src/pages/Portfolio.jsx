@@ -55,7 +55,6 @@ class Portfolio extends React.Component {
       })
       .then((result) => {
         let data = result.data;
-        console.log(data);
         if (data.alert) {
           alert(data.alert);
         } else {
