@@ -1,18 +1,18 @@
 # Stock Portfolio App
 
 An application that simulates a stock portfolio with user authentication.
-Currently Deployed at:
-ec2-3-17-185-88.us-east-2.compute.amazonaws.com
 
-## Deployed Existing Accounts (You can make your own too!):
+## Deployed (On AWS EC2) Existing Accounts (You can make your own too!):
 
 ### John Doe
 
 E-mail: john_doe@gmail.com
+
 Password: student0
 
 ### Bob Dylan
 E-mail: bob_dylan@gmail.com
+
 Password: student1
 
 ## User Stories:
