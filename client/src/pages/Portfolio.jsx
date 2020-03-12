@@ -72,7 +72,6 @@ class Portfolio extends React.Component {
         return axios.get('/api/portfolio', {headers: {'Authorization': token}})
       })
       .then((portfolio) => {
-        console.log(portfolio.data);
         this.setState({
           loading: false,
           balance: portfolio.data.balance,
