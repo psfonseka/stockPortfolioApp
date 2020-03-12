@@ -9,7 +9,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Portfolio from "../pages/Portfolio";
 import Transactions from "../pages/Transactions";
-import SignOut from "../pages/SignOut";
+import SignOut from "../pages/Signout";
 import firebase from "firebase";
 import firebaseConfig from "../firebase"
 
